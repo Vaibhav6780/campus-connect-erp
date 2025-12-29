@@ -193,6 +193,102 @@ export type Database = {
           },
         ]
       }
+      courses: {
+        Row: {
+          assigned_faculty_id: string | null
+          class_id: string | null
+          course_code: string
+          course_name: string
+          created_at: string
+          credits: number
+          id: string
+          program: string
+          updated_at: string
+        }
+        Insert: {
+          assigned_faculty_id?: string | null
+          class_id?: string | null
+          course_code: string
+          course_name: string
+          created_at?: string
+          credits?: number
+          id?: string
+          program: string
+          updated_at?: string
+        }
+        Update: {
+          assigned_faculty_id?: string | null
+          class_id?: string | null
+          course_code?: string
+          course_name?: string
+          created_at?: string
+          credits?: number
+          id?: string
+          program?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "courses_assigned_faculty_id_fkey"
+            columns: ["assigned_faculty_id"]
+            isOneToOne: false
+            referencedRelation: "faculty"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "courses_class_id_fkey"
+            columns: ["class_id"]
+            isOneToOne: false
+            referencedRelation: "classes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      enrollments: {
+        Row: {
+          course_id: string
+          created_at: string
+          enrollment_date: string
+          id: string
+          semester: number
+          status: string
+          student_id: string
+        }
+        Insert: {
+          course_id: string
+          created_at?: string
+          enrollment_date?: string
+          id?: string
+          semester: number
+          status?: string
+          student_id: string
+        }
+        Update: {
+          course_id?: string
+          created_at?: string
+          enrollment_date?: string
+          id?: string
+          semester?: number
+          status?: string
+          student_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "enrollments_course_id_fkey"
+            columns: ["course_id"]
+            isOneToOne: false
+            referencedRelation: "courses"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "enrollments_student_id_fkey"
+            columns: ["student_id"]
+            isOneToOne: false
+            referencedRelation: "students"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       faculty: {
         Row: {
           created_at: string
@@ -272,6 +368,53 @@ export type Database = {
             columns: ["faculty_id"]
             isOneToOne: false
             referencedRelation: "faculty"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      fee_invoices: {
+        Row: {
+          amount: number
+          created_at: string
+          description: string | null
+          due_date: string | null
+          id: string
+          payment_date: string | null
+          payment_status: string
+          semester: number
+          student_id: string
+          updated_at: string
+        }
+        Insert: {
+          amount: number
+          created_at?: string
+          description?: string | null
+          due_date?: string | null
+          id?: string
+          payment_date?: string | null
+          payment_status?: string
+          semester: number
+          student_id: string
+          updated_at?: string
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          description?: string | null
+          due_date?: string | null
+          id?: string
+          payment_date?: string | null
+          payment_status?: string
+          semester?: number
+          student_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "fee_invoices_student_id_fkey"
+            columns: ["student_id"]
+            isOneToOne: false
+            referencedRelation: "students"
             referencedColumns: ["id"]
           },
         ]
